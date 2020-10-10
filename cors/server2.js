@@ -1,15 +1,23 @@
 const http = require('http')
+const querystring = require('querystring')
 
 http.createServer(function (request, response) {
-  console.log('request come', request.url)
+    const [path, query] = request.url.split('?')
+    console.info('request come', request.url)
 
-  response.writeHead(200, {
-    'Access-Control-Allow-Origin': 'http://127.0.0.1:8888',
-    'Access-Control-Allow-Headers': 'X-Test-Cors',
-    'Access-Control-Allow-Methods': 'POST, PUT, DELETE',
-    'Access-Control-Max-Age': '1000'
-  })
-  response.end('123')
+    if (path === '/jsonp' && query) {
+        const { callback } = querystring.parse(query)
+        response.end(`${callback}(123)`)
+    } else {        
+        response.writeHead(200, {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': 'X-Test-Cors',
+            'Access-Control-Allow-Methods': 'POST, PUT, DELETE',
+            'Access-Control-Max-Age': '1000'
+        })
+        response.end('123')
+    }
+
 }).listen(8887)
 
 console.log('server listening on 8887')
