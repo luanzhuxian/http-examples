@@ -3,11 +3,11 @@ const querystring = require('querystring')
 
 http.createServer(function (request, response) {
     const [path, query] = request.url.split('?')
-    console.info('request come', request.url)
+    console.info('request url', request.url)
 
     if (path === '/jsonp' && query) {
         const { callback } = querystring.parse(query)
-        response.end(`${callback}(123)`)
+        response.end(`${callback}(jsonp)`)
     } else {        
         response.writeHead(200, {
             'Access-Control-Allow-Origin': '*',

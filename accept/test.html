@@ -7,6 +7,7 @@
   <title>Document</title>
 </head>
 <body>
+  <!-- <form action="/form" id="form" method="POST" enctype="application/x-www-form-urlencoded"> -->
   <form action="/form" id="form" enctype="application/x-www-form-urlencoded">
     <input type="text" name="name">
     <input type="password" name="password">
@@ -17,7 +18,7 @@
     var form = document.getElementById('form')
     form.addEventListener('submit', function (e) {
       e.preventDefault()
-      var formData = new FormData(form)
+      var formData = new FormData(form) // Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryBCtljFGb6GGRQELI
       fetch('/form', {
         method: 'POST',
         body: formData

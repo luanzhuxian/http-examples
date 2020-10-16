@@ -1,19 +1,23 @@
 const http = require('http')
 
 http.createServer(function (request, response) {
-  console.log('request come', request.url)
+  console.log('request url', request.url)
 
   if (request.url === '/') {
-    response.writeHead(302, {  // or 301
-      'Location': '/new'
+    response.writeHead(301, {  // 永久变更
+      'Location': '/new'    // 告诉浏览器新的资源在哪
     })
+    // response.writeHead(302, {  // 临时变更
+    //   'Location': '/new'    // 告诉浏览器新的资源在哪
+    // })
     response.end()
   }
+
   if (request.url === '/new') {
     response.writeHead(200, {
-      'Content-Type': 'text/html',
+      'Content-Type': 'text/html;charset=utf-8',
     })
-    response.end('<div>this is content</div>')
+    response.end('<div>被你发现啦~~</div>')
   }
 }).listen(8888)
 

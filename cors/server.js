@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 
 http.createServer(function (request, response) {
-  console.log('request come', request.url)
+  console.log('request url', request.url)
 
   // 若不设置 urf8 编码，就会读取二进制格式，无法以字符串的形式返回
   const html = fs.readFileSync(path.resolve(__dirname, 'test.html'), 'utf8')

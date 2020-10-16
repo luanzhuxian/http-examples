@@ -6,25 +6,31 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+
 <body>
   <div>This is content, and data is: <span id="data"></span></div>
   <button id="button">click me</button>
 </body>
+
 <script>
-  var index = 0
-  function doRequest () {
-    var data = document.getElementById('data')
-    data.innerText = ''
-    fetch('/data', {
-      headers: {
-        'X-Test-Cache': index++
-      }
-    }).then(function (resp) {
-      return resp.text()
-    }).then(function (text) {
-      data.innerText = text
-    })
-  }
-  document.getElementById('button').addEventListener('click', doRequest)
+    var index = 0
+
+    function doRequest () {
+        var data = document.getElementById('data')
+        data.innerText = ''
+
+        fetch('/data', {
+            headers: {
+                'X-Test-Cache': index++
+            }
+        }).then(function (res) {
+            // fetch response 的 api 将返回转换成text字符串格式
+            return res.text()
+        }).then(function (text) {
+            data.innerText = text
+        })
+    }
+
+    document.getElementById('button').addEventListener('click', doRequest)
 </script>
 </html>

@@ -1,11 +1,12 @@
 const http = require('http')
 const fs = require('fs')
+const path = require('path')
 
 http.createServer(function (request, response) {
-  console.log('request come', request.url)
+  console.log('request url', request.url)
 
   if (request.url === '/') {
-    const html = fs.readFileSync('test.html', 'utf8')
+    const html = fs.readFileSync(path.resolve(__dirname, 'test.html'), 'utf8')
     response.writeHead(200, {
       'Content-Type': 'text/html',
       // 'Content-Security-Policy': 'script-src \'self\'; form-action \'self\'; report-uri /report'
